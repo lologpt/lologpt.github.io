@@ -1,0 +1,54 @@
+/* Основные стили для body */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    background-image: url('https://i.pinimg.com/736x/fe/0b/1d/fe0b1dee0f9edc90858c214690290036.jpg');
+    background-size: cover; /* Опционально, чтобы изображение заполняло весь экран */
+    background-position: center; /* Опционально, для центрирования изображения */
+    background-repeat: repeat; /* Опционально, чтобы изображение не повторялось */
+    background-filter: blur(10px);
+    color: #333;
+}
+
+/* Стили для кнопок */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Стили для кнопок при наведении */
+button:hover {
+    background-color: #45a049;
+}
+
+/* Стили для заголовков */
+h1, h2 {
+    color: #ffffff;
+    text-shadow: 
+                -1px -1px 0 #000000,  
+                1px -1px 0 #000000,
+                -1px 1px 0 #000000,
+                1px 1px 0 #000000;
+}
+
+p {
+    color: #ff0000;
+    text-shadow: 
+                -1px -1px 0 #000000,  
+                1px -1px 0 #000000,
+                -1px 1px 0 #000000,
+                1px 1px 0 #000000;
+}
+
+/* Стили для блока улучшений */
+#upgrades {
+    margin-top: 20px;
+}
