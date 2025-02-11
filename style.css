@@ -1,42 +1,75 @@
 /* Основные стили для body */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
+    font-size: 25px;
     margin-top: 50px;
-    background-image: url('https://i.pinimg.com/736x/fe/0b/1d/fe0b1dee0f9edc90858c214690290036.jpg');
-    background-size: cover; /* Опционально, чтобы изображение заполняло весь экран */
-    background-position: center; /* Опционально, для центрирования изображения */
-    background-repeat: repeat; /* Опционально, чтобы изображение не повторялось */
-    background-filter: blur(10px);
     color: #333;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://sotni.ru/wp-content/uploads/2023/08/fon-na-rabochii-stol-mainkraft-sheidery-3.webp');
+    background-size: auto;
+    background-position: center;
+    filter: blur(10px); /* Размытие фона */
+    z-index: -1; /* Помещаем под основной контент */
+}
+
+/* Затемнение фона */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Затемнение (черный с 50% прозрачностью) */
+    z-index: -1; /* Помещаем под основной контент */
 }
 
 /* Стили для кнопок */
 button {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: rgba(45, 45, 45, 0.6);
     color: white;
-    border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    border-color: rgb(255, 255, 255);
     margin: 5px;
     transition: background-color 0.3s ease;
 }
 
 /* Стили для кнопок при наведении */
 button:hover {
-    background-color: #45a049;
+    background-color: rgba(45, 45, 45, 0.8);
 }
 
 /* Стили для заголовков */
-h1, h2 {
+h1 {
     color: #ffffff;
     text-shadow: 
                 -1px -1px 0 #000000,  
                 1px -1px 0 #000000,
                 -1px 1px 0 #000000,
                 1px 1px 0 #000000;
+    font-size: 50px;
+}
+
+h2 {
+    color: #ffffff;
+    text-shadow: 
+                -1px -1px 0 #000000,  
+                1px -1px 0 #000000,
+                -1px 1px 0 #000000,
+                1px 1px 0 #000000;
+    font-size: 25px;
 }
 
 p {
@@ -46,6 +79,7 @@ p {
                 1px -1px 0 #000000,
                 -1px 1px 0 #000000,
                 1px 1px 0 #000000;
+    size: 15px;
 }
 
 /* Стили для блока улучшений */
