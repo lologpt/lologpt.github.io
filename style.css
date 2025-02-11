@@ -14,7 +14,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('img/background.webp');
+    background-image: img/background.webp;
     background-size: auto;
     background-position: center;
     filter: blur(10px); /* Размытие фона */
