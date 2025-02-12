@@ -90,6 +90,8 @@ function loadProgress() {
 }
 
 function showNotification(message) {
+    if (!notificationsEnabled) return; // Если уведомления выключены, ничего не делаем
+
     const notificationContainer = document.getElementById('notificationContainer');
     const notification = document.createElement('div');
     notification.className = 'notification';
@@ -108,8 +110,32 @@ function showNotification(message) {
         setTimeout(() => {
             notification.remove();
         }, 500); // Ждем завершения анимации исчезновения
-    }, 3000);
+    }, 2000);
 }
+
+let notificationsEnabled = true; // По умолчанию уведомления включены
+
+// Функция для переключения уведомлений
+function toggleNotifications() {
+    const toggle = document.getElementById('notificationToggle');
+    notificationsEnabled = toggle.checked;
+    localStorage.setItem('notificationsEnabled', notificationsEnabled); // Сохраняем состояние в localStorage
+}
+
+// Загрузка состояния уведомлений при запуске
+function loadSettings() {
+    const savedSetting = localStorage.getItem('notificationsEnabled');
+    if (savedSetting !== null) {
+        notificationsEnabled = savedSetting === 'true';
+        document.getElementById('notificationToggle').checked = notificationsEnabled;
+    }
+}
+
+// Вызов функции загрузки настроек при запуске
+loadSettings();
+
+// Добавляем обработчик события для переключателя
+document.getElementById('notificationToggle').addEventListener('change', toggleNotifications);
 
 // Вызываем функцию загрузки прогресса при запуске игры
 loadProgress();
