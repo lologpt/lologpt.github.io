@@ -168,7 +168,7 @@ function clickButton(type) {
         localStorage.setItem('strawupcost', strawberryupCost);
         showNotification('Ваш прогресс успешно сохранен! :3)');
     } else if (type === 'whatnew') {
-        alert('В новой версии beta 0.4 появились следующие обновления: Малинка и Лукошко под Малинку - новые улучшения (Культура и Усилитель Культуры), Кнопка "Удалить прогресс!" - опасная кнопка, которая начнет ваше прохождение заново, Ссылка на ТГ-канал сайта на котором вы можете узнать новости об следующих обновлениях, большинство всплывающих уведомлений получили редизайн, Теперь автосохранение происходит 1 раз в 60 секунд, поэтому кнопка "Сохранить прогресс" обрела смысл, у улучшения Качество Травы наконец появилось обозначение уровня... И самое сладкое... Достижения!!! В игру добавленны 33 достижения, от простых, до практически невозможных, подробнее в https://t.me/miniwebfarm');
+        alert('Исправлен баг, когда стоимость улучшений имела в себе очень много чисел после запятой');
     } else if (type === 'info5' ) {
         showNotification('Увеличивает доход в секунду на 150* (В зависимости от уровня улучшения Лукошко под Малинку)');
     } else if (type === 'info5up') {
@@ -211,7 +211,7 @@ function buyUpgrade(type) {
             score -= wheatUpgradeCost;
             incomeWheat += wheatPasive // Вычитаем стоимость улучшения
             income = incomeWheat + incomePotato + incomeCarrot + incomeStrawberry; // Увеличиваем доход в секунду
-            wheatUpgradeCost *= 1.1; // Увеличиваем стоимость следующего улучшения в 2 раза
+            wheatUpgradeCost = Math.round(wheatUpgradeCost * 1.1); // Увеличиваем стоимость следующего улучшения в 2 раза
 	        wheatLevel += 1;
 	        showNotification("Вай брат, держи Лютший пшеница Казахстан!");
             if ( wheatLevel === 1 ) {
@@ -240,7 +240,7 @@ function buyUpgrade(type) {
             score -= potatoUpgradeCost; // Вычитаем стоимость улучшения
             incomePotato += potatoPasive;
             income = incomeWheat + incomePotato + incomeCarrot + incomeStrawberry; // Увеличиваем доход в секунду
-            potatoUpgradeCost *= 1.1; // Увеличиваем стоимость следующего улучшения в 2 раза
+            potatoUpgradeCost = Math.round(potatoUpgradeCost * 1.1); // Увеличиваем стоимость следующего улучшения в 2 раза
 	        potatoLevel += 1;
 	        showNotification("Беларусь гордится тобой. Относись к этому картофелю как к Родине своей. От Лукашенко тебе привет!)");
             if ( potatoLevel === 1 ) {
@@ -269,7 +269,7 @@ function buyUpgrade(type) {
             score -= carrotUpgradeCost; // Вычитаем стоимость улучшения
             incomeCarrot += carrotPasive;
             income = incomeWheat + incomePotato + incomeCarrot + incomeStrawberry; // Увеличиваем доход в секунду
-            carrotUpgradeCost *= 1.1; // Увеличиваем стоимость следующего улучшения в 2 раза
+            carrotUpgradeCost = Math.round( carrotUpgradeCost * 1.1); // Увеличиваем стоимость следующего улучшения в 2 раза
 	        carrotLevel += 1;
 	        showNotification("Елки-Иголки, Ежик, смотри что выращивает этот овощ. ЭТО ЖЕ МОРКОВЬ");
             if ( carrotLevel === 1 ) {
@@ -380,7 +380,7 @@ function buyUpgrade(type) {
             score -= strawberryCost;
             incomeStrawberry += strawberryPasive;
             income = incomeWheat + incomePotato + incomeCarrot + incomeStrawberry;
-            strawberryCost *= 1.1;
+            strawberryCost = Math.round(strawberryCost * 1.1);
             strawberryLevel += 1;
             showNotification('Ягодка-малинка оп-оп-оп!');
             if ( strawberryLevel === 1 ) {
