@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила для администрации</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Убираем скролл всей страницы */
+        }
+        
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.pinimg.com/originals/66/1b/99/661b9906e62042ba76eed701cb744a6e.gif') center center;
+            background-size: cover;
+            z-index: -1;
+        }
+        
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Занимает 100% высоты экрана */
+            padding: 20px;
+            box-sizing: border-box; /* Учитываем padding в общей высоте */
+        }
+        
+        .rules-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh; /* Ограничиваем высоту */
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow-y: auto; /* Внутренний скролл, если контент не помещается */
+        }
+        
+        .title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            margin: 15px 0 10px;
+            color: #cccccc;
+        }
+        
+        .text {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .chapter {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+        
+        .rule-item {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .rule-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="content">
+        <div class="rules-box">
+            <h1 class="title">Правила для администрации</h1>
+            
+            <div class="chapter">
+                <h2 class="subtitle">1. Обязанности администрации</h2>
+                <div class="rule-item text">Следить за порядком на проекте и пресекать нарушения.</div>
+                <div class="rule-item text">Реагировать на жалобы пользователей в личные сообщения в течение 24 часов с подачи жалобы. Наказание в случае нарушения: Предупреждение 1/3</div>
+                <div class="rule-item text">Высылать все отчеты в группу отчетности строго по форме. Наказание в случае нарушения: Предупреждение 1/3</div>
+                <div class="rule-item text">Обосновывать выдачу наказаний высшему руководству в случае поданной пользователем аппеляции. Наказание в случае нарушения: Предупреждение 1/3</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">3. Запрещенные действия</h2>
+                <div class="rule-item text">Использование административных прав в личных целях. Наказание: снятие без возожности занимать пост в будущем</div>
+                <div class="rule-item text">Выдача личной информации пользователей третьим лицам. Наказание: Предупреждение 2/3</div>
+                <div class="rule-item text">Необоснованные блокировки и наказания. Наказание: Предупреждение 1/3</div>
+                <div class="rule-item text">Оскорбления и унижение пользователей. Наказание: Предупреждение 1/3</div>
+                <div class="rule-item text">Использование ненормативной лексики в официальных обращениях. Наказание: Предупреждение 1/3</div>
+                <div class="rule-item text">Передача своего аккаунта третьим лицам. Наказание: снятие без возожности занимать пост в будущем и перманентный бан в чате канала.</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">4. Наказания пользователей</h2>
+                <div class="rule-item text">Наказание должно соответствовать своду правил. Исключение моральное нарушение не прописанное в правилах с полным обоснованием наказания.</div>
+                <div class="rule-item text">При серьезных нарушениях требуется согласование с главным администратором.</div>
+                <div class="rule-item text">Каждое наказание должно быть зафиксированно в отчетности.</div>
+                <div class="rule-item text">Пользователь имеет право обжаловать наказание в течение 48 часов с получения наказания в личных сообщениях администрации.</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">5. Коммуникация в команде</h2>
+                <div class="rule-item text">Соблюдать конфиденциальность внутренних обсуждений.</div>
+                <div class="rule-item text">Уважительно относиться к другим членам команды.</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">6. Ответственность</h2>
+                <div class="rule-item text">Администратор несет ответственность за свои действия.</div>
+                <div class="rule-item text">Нарушение правил администратором карается строже, чем обычным пользователем.</div>
+                <div class="rule-item text">Администратор обязан возместить ущерб, причиненный проекту по его вине (распространение платных ключей в чате).</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">7. Заключительные положения</h2>
+                <div class="rule-item text">Администратор автоматически соглашается с этими правилами при получении прав.</div>
+                <div class="rule-item text">Правила могут быть изменены с уведомлением администрации.</div>
+                <div class="rule-item text">В спорных ситуациях решающее слово остается за владельцем проекта.</div>
+                <div class="rule-item text">Администратор может добровольно уйти с поста предупредив об этом Владельца.</div>
+                <div class="rule-item text">При получении более трех предупреждений за 2 недели Администратор снимается с поста и теряет право занимать данную должность.</div>
+            </div>
+            
+            <div class="text" style="text-align: center; margin-top: 30px;">
+                Последнее обновление: 04.08.2025
+            </div>
+        </div>
+    </div>
+</body>
+</html>
