@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outline Sagdiev Portal</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+.logo-container {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            padding: 1px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            margin: 15% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4">
+    <div class="text-center mb-12">
+        <div class="flex flex-col items-center justify-center gap-4 mb-8">
+            <div class="logo-container">
+                <img id="logo" src="" alt="Logo" class="w-32 h-32 object-contain">
+            </div>
+            <div class="hidden md:flex gap-4">
+                <h1 class="text-3xl md:text-4xl font-bold text-white">Outline</h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-white">Sagdiev</h1>
+            </div>
+        </div>
+</div>
+    <div class="flex flex-col md:flex-row w-full max-w-4xl justify-center gap-4 mb-8">
+<button onclick="displayContent('participant')" class="bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+            Правила для участников
+        </button>
+        <button onclick="displayContent('admin')" class="bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+            Правила для администрации
+        </button>
+        <button onclick="displayContent('contacts')" class="bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+            Контакты администрации
+        </button>
+        <button onclick="if(window.innerWidth < 768){document.getElementById('codeModal').style.display='block';}else{showCodeInput();}" class="bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105">
+            Ввести ключ-код
+        </button>
+</div>
+<!-- Content display area -->
+    <div id="contentDisplay" class="w-full max-w-4xl bg-white bg-opacity-90 rounded-lg shadow-lg p-6 hidden"></div>
+<!-- Modals -->
+    <div id="rulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close absolute top-2 right-4 text-2xl font-bold cursor-pointer" onclick="closeModal('rulesModal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4" id="rulesTitle"></h2>
+            <div class="overflow-y-auto max-h-96" id="rulesContent"></div>
+        </div>
+    </div>
+
+    <div id="contactsModal" class="modal">
+        <div class="modal-content">
+            <span class="close absolute top-2 right-4 text-2xl font-bold cursor-pointer" onclick="closeModal('contactsModal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Контакты администрации</h2>
+            <div class="overflow-y-auto max-h-96" id="contactsContent"></div>
+        </div>
+    </div>
+
+    <div id="codeModal" class="modal">
+        <div class="modal-content">
+            <span class="close absolute top-2 right-4 text-2xl font-bold cursor-pointer" onclick="closeModal('codeModal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Введите ключ-код</h2>
+            <input type="text" id="codeInput" class="w-full p-2 border rounded mb-4" placeholder="Введите ваш ключ-код">
+            <button onclick="checkCode()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                Проверить
+            </button>
+            <div id="codeResult" class="mt-4 hidden p-4 bg-gray-100 rounded"></div>
+        </div>
+    </div>
+
+    <script>
+        // You'll need to add your actual logo URL here
+        document.getElementById('logo').src = 'https://cdn4.telesco.pe/file/IHUI2Yu9dsfPhwq3dYWRYZP_vV6xNQ4Jy9IgLf-HRjYAq5WKdsdKSimRosQ_Ww2aUNK31-y7h0nlKHI4f7pTuaihT4jQmN_G43MqbXCGzCUTmO4T78sq20vekMmNGmn_0WtJbRHcHSjhTEgFvnRm7N4ItWzrNdYA7kh3MkIWuy3FDbRYPa96B3r1s4jDInq9fDyUuriNuZnPV304UdodpPQwbUzhdJT7cMCyCa5LvR038qH7gEr6LLo8L8lZRe8ZlmZrge2kZdJC35uBV-XGQx63xc5i_8ijz2Ps0XqgcuClhzW4JS-0DVBoxoOuVksYbQhnrUlUgkKVbvotczxbng.jpg';
+        function displayContent(type) {
+            const display = document.getElementById('contentDisplay');
+            
+            if (type === 'participant') {
+                display.innerHTML = `
+                    <h2 class="text-2xl font-bold mb-4">Правила для участников</h2>
+                    <div class="space-y-4">
+<h2 class="subtitle">1.Общие положения</h2>
+            
+            <p class="text">1.1 Присоединение к чату означает автоматическое согласие с его правилами.<br>1.2 Незнание правил не освобождает от ответственности.</p>
+            
+            <h2 class="subtitle">2. Основные определения</h2>
+            
+            <p class="text">2.1 Спам - повторение одинаковых или однотипных сообщений.<br>2.2 Флуд - сообщения не несущие смысловой нагрузки и затрудняющие общение в чате.<br>2.3 ОффТоп - сообщение, не соответсвующее тематике канала</p>
+
+            <h2 class="subtitle">3. Запрещенные действия и наказания</h2>
+
+            <p class="text">3.1 Оскорбления в грубой форме (Пример - пидорас, даун, уебан, долбоеб) Наказание: мут от 60 минут<br>3.2 Контент содержащий порнографию, насилие, издевательства над людьми и животными. Наказание: мут от 24 часов<br>3.3 Разжигание ненависти (по рассовым, религиозным и национальным признакам). Наказание: мут от 24 часов<br>3.4 Спам и флуд. Наказание: мут от 10 минут<br>3.5 Реклама сторонних ресурсов (без разрешения администратора). Наказание: бан от 14 дней<br>3.6 Использование чата в торговых целях (покупка или продажа). Наказание: бан от 30 дней<br>    3.6.1 Продажа ключей для VPN в чате. Наказание: перманентный бан<br> 3.6.1.1 Нарушение правила 4.1.1 влечет за собой наказание: бан от 7 дней <br>3.7 Подстрекательсво на нарушение. Наказание: равносильное нарушенному<br>3.8 Дезинформация (распространение фейков об сервисах). Наказание: мут от 4 часов</p>
+
+            <h2 class="subtitle">4. Правомерные (разрешенные) действия</h2>
+
+            <p class="text">4.1 Бесплатно выкладывать свои ключи для Outline.<br>
+4.1.1 Опубликовывать в чате группы приватный платный ключ запрещено<br>
+4.2 Критиковать работу администрации (в рамках уважительного тона).<br>
+4.3 Обсуждать политику и другие темы (без перехода на личности).<br>
+4.4 Публиковать GIF, фото и видео (если контент не нарушает правила).<br>
+4.5 Общение на любые темы (в рамках разумного).<br>
+4.6 Публикация мемов (рекомендуется в комментариях).</p>
+            
+            <h2 class="subtitle">5. Администрации разрешено</h2>
+
+            <p class="text">5.1 Выдавать наказания за нарушения.<br>
+5.2 Увеличивать срок в исключительных случаях.<br>
+5.3 Удалять сообщения, нарушающие правила.<br>
+5.4 Блокировать/мутить участников, даже если их действия не прописаны в правилах, но мешают другим.<br>
+5.5 Действовать на свое усмотрение в спорных ситуациях.</p>
+            
+            <h2 class="subtitle">6. Ограничения Администрации</h2>
+
+            <p class="text">6.1 Запрещено банить/мутить без причины ("просто так").<br>
+6.2 Запрещено удалять сообщения без нарушения.<br>
+6.3 Администратор обязан рассмотреть апелляцию, если участник оспаривает наказание.</p>
+
+            <h2 class="subtitle">7. Оспаривание наказания</h2>
+
+            <p class="text">7.1 Участник имеет право оспаривать наказание через личные сообщения Администратору (@osagdcoop).<br>
+7.2 Участник имеет право требовать объяснения при спорных блокировках.</p>
+                    </div>
+                `;
+            } else if (type === 'admin') {
+                display.innerHTML = `
+                    <h2 class="text-2xl font-bold mb-4">Правила для администрации</h2>
+                    <div class="space-y-4">            
+            <div class="chapter">
+                <h2 class="subtitle">1. Обязанности администрации</h2>
+                <div class="rule-item text">1.1. Следить за действиями пользователей в чате.</div>
+                <div class="rule-item text">1.1.1. Верно выдавать наказания за нарушения в чате.</div>
+                <div class="rule-item text">1.1.1.1. При неверно выданном наказании могут приниматься следующие меры:</div>
+                <div class="rule-item text">- Наказание выдано неверно по причине: «ошибка в написании команды» - меры: устное предупреждение</div>
+                <div class="rule-item text">- Наказание выдано неверно по причине: «незнание правил» - меры: предупреждение 1/3 на срок от 2-х недель. </div>
+                <div class="rule-item text">1.1.2. Помогать пользователям в случае возникновения у них вопросов или проблем по поводу тематики канала</div>
+                <div class="rule-item text">1.1.2.1. Экстренно реагировать на жалобы на работу бота, ключей или другой доступной информации на канале.</div>
+                <div class="rule-item text">1.2. Отчитываться о следующих действиях в ветку: «Отчетность» группы администрации:</div>
+                <div class="rule-item text">- Наказания за нарушения согласно примеру.</div>
+                <div class="rule-item text">- Помощь при получении платного кода.</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">2. Разрешенные действия от лица администрации</h2>
+                <div class="rule-item text">2.1. В сторону пользователей в чате «Outline чатикс»</div>
+                <div class="rule-item text">2.1.1. Использовать в своей речи минимальное количество нецензурных выражений.</div>
+                <div class="rule-item text">2.1.2. Распространять в чате фото, gif, видео и аудио -файлы юмористического или информационного характера.</div>
+                <div class="rule-item text">2.1.3. Оскорблять других модераторов, администраторов, стажеров если данное действие может быть согласованно с обеих сторон до или после конфликта.</div>
+                <div class="rule-item text">2.2. В сторону администрации в чате Администрации:</div>
+                <div class="rule-item text">2.2.1. Общаться в ветке: «общение»</div>
+                <div class="rule-item text">2.2.1.1. Включая разрешения из всех подпунктов пункта 2.1. (исключая подпункт 2.1.1.)</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">3. Запрещенные действия</h2>
+                <div class="rule-item text">3.1. Распространять личную информацию об участниках, администрации без согласия самого участника. Наказание: предупреждение 2/3 сроком до 30-и дней</div>
+                <div class="rule-item text">3.2. Использовать возможности прав модератора в личных целях. Наказание: снятие без возможности занимать пост в будущем.</div>
+                <div class="rule-item text">3.3. Необоснованные блокировки и наказания. Наказание: Предупреждение 1/3 сроком до 2-х недель.</div>
+                <div class="rule-item text">3.3.1. Отсутствие отчетов об наказаниях или помощи также наказывается по правилу 3.3. Исключением становится личное вмешательство главного администратора в процесс наказания или помощи пользователю.</div>
+                <div class="rule-item text">3.4 Оскорбления и унижение пользователей. Наказание: Предупреждение 1/3 сроком до 2-х недель</div>
+                <div class="rule-item text">3.4.1. Оскорблениями и унижениями считаются следующие термины:</div>
+                <div class="rule-item text">- Оскорбления и унижения с использованием нецензурной лексики.</div>
+                <div class="rule-item text">- Оскорбления и унижения с использованием лексикона заболеваний или синдромов (пример: даун, отсталый, дегенерат)</div>
+                <div class="rule-item text">3.5. Использование ненормативной лексики в официальных обращениях. Наказание: Предупреждение 1/3 на срок от 2-х недель</div>
+                <div class="rule-item text">3.5.1. Официальными обращениями считаются:</div>
+                <div class="rule-item text">- Предупреждения в чате об изменениях</div>
+                <div class="rule-item text">- Посты в канале</div>
+                <div class="rule-item text">- Ответы на обжалование</div>
+                <div class="rule-item text">3.6. Передача своего аккаунта третьим лицам. Наказание: снятие без возможности занимать пост в будущем и перманентный бан в чате канала.</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">4. Наказания пользователей</h2>
+                <div class="rule-item text">4.1 Наказание должно соответствовать своду правил. Исключение: моральное нарушение, не прописанное в правилах с полным обоснованием наказания.</div>
+                <div class="rule-item text">4.2 При серьезных нарушениях требуется согласование с главным администратором.</div>
+                <div class="rule-item text">4.3. Пользователь имеет право обжаловать наказание в течение 48 часов с получения наказания в личных сообщениях администрации.</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">5. Ответственность</h2>
+                <div class="rule-item text">5.1. Администратор несет ответственность за свои действия.</div>
+                <div class="rule-item text">5.2. Нарушение правил администратором карается строже, чем обычным пользователем.</div>
+                <div class="rule-item text">5.3. Администратор обязан возместить ущерб, причиненный проекту по его вине (распространение платных ключей в чате, продажа пользователю недействительного ключа).</div>
+            </div>
+            
+            <div class="chapter">
+                <h2 class="subtitle">6. Заключительные положения</h2>
+                <div class="rule-item text">6.1. Администратор автоматически соглашается с этими правилами при получении прав.</div>
+                <div class="rule-item text">6.2. Правила могут быть изменены с уведомлением администрации.</div>
+                <div class="rule-item text">6.3. В спорных ситуациях решающее слово остается за владельцем проекта.</div>
+                <div class="rule-item text">6.4. Администратор может добровольно уйти с поста предупредив об этом Владельца.</div>
+                <div class="rule-item text">6.5. При получении предупреждения 3/3 Администратор снимается с поста и теряет право занимать данную должность.</div>
+                <div class="rule-item text">6.6. Администратор на время действия предупреждений лишается заработной платы (нововведение запланировано на сентябрь 2025)</div>
+                <div class="rule-item text">6.7. Любая административная активность отслеживается и подсчитывается, по завершению каждой недели будет вестись график работы, на котором будет отображена активность: в чате, помощь, наказания, предупреждение. Самый неактивный модератор получает предупреждение 1/3 сроком до 7-ми дней.</div>
+            </div>
+                    </div>
+                `;
+            } else if (type === 'contacts') {
+                display.innerHTML = `
+                    <h2 class="text-2xl font-bold mb-4">Контакты администрации</h2>
+                    <div class="space-y-4">
+                        <p>@I_Am_Stupidbot - Главный Администратор<br>
+			@Durov7770 - Старший Модератор<br>
+			@nnlligent - Модератор<br>
+			@mefedronshit - Модератор</p>
+                    </div>
+                `;
+            }
+            
+            display.classList.remove('hidden');
+            document.getElementById('mobileMenu').classList.add('-translate-x-full');
+        }
+        function showCodeInput() {
+            document.getElementById('codeModal').style.display = 'block';
+            document.getElementById('codeInput').value = '';
+            document.getElementById('codeResult').classList.add('hidden');
+        }
+function checkCode() {
+            const code = document.getElementById('codeInput').value.trim();
+            const resultDiv = document.getElementById('codeResult');
+            resultDiv.classList.remove('hidden');
+            
+            // Example codes and responses
+            if (code === '1septfest') {
+                resultDiv.innerHTML = '<p>https://t.me/sdsfkjociiiis</p>';
+            } else if (code === 'KEY2') {
+                resultDiv.innerHTML = '<p>Данные для ключа 2...</p>';
+            } else {
+                resultDiv.innerHTML = '<p class="text-red-500">Неверный ключ-код. Пожалуйста, попробуйте еще раз.</p>';
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+// Close content display when clicking outside
+        document.addEventListener('click', function(event) {
+            const contentDisplay = document.getElementById('contentDisplay');
+            const buttons = document.querySelectorAll('button[onclick^="displayContent"]');
+            
+            if (!contentDisplay.contains(event.target) && 
+                !Array.from(buttons).some(btn => btn.contains(event.target)) &&
+                !contentDisplay.classList.contains('hidden')) {
+                contentDisplay.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
